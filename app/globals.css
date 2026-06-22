@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f2f0ea;
+  --ink: #0a0a0a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink);
+  color: var(--paper);
+  overflow-x: hidden;
+  /* Stop the browser from auto-adjusting scroll position when the morphing
+     logo / animations change layout (prevents unexpected scroll jumps). */
+  overflow-anchor: none;
+}
+
+body {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Hide the native cursor over the interactive hero so the custom feel reads
+   as premium. We re-enable it on form fields. */
+.hero-cursor-none,
+.hero-cursor-none * {
+  cursor: none;
+}
+.hero-cursor-none input,
+.hero-cursor-none button,
+.hero-cursor-none a {
+  cursor: pointer;
+}
+
+/* Film-grain / scan overlay: subtle, sits above everything but ignores input. */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.05;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* A slow-moving horizontal scanline band, Scanner-Darkly flavoured. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 55;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  opacity: 0.35;
+}
+
+/* Per-character logo glyphs: the font swaps instantly, no fade or blur. */
+.morph-char {
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph-char {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Thin uppercase tracking helper, used for labels and the mobile hint. */
+.label {
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
