@@ -8,6 +8,8 @@ const WORD = "TRENDPLATES";
 const REPEL_RADIUS = 195; // px: how close the pointer gets before letters flee
 const REPEL_MAX = 88; // px: max displacement (knocked further out of the way)
 const EASE = 0.16; // lerp factor for the spring-like return
+const IDLE_AMP = 6; // px: gentle "alive" drift each letter has at rest
+const IDLE_SPEED = 0.0011; // radians/ms for the idle drift
 
 function randomFont(exclude) {
   let f = FONT_VARS[Math.floor(Math.random() * FONT_VARS.length)];
@@ -81,7 +83,7 @@ export default function MorphingLogo({ pointerRef }) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
 
-    const loop = () => {
+    const loop = (now) => {
       const p = pointerRef.current;
       const els = charEls.current;
 
@@ -90,8 +92,13 @@ export default function MorphingLogo({ pointerRef }) {
         if (!el) continue;
         const o = offsets.current[i] || (offsets.current[i] = { x: 0, y: 0 });
 
-        let tx = 0;
-        let ty = 0;
+        // Gentle idle drift so the letters feel alive without any input
+        // (especially on mobile, where there's no hovering cursor).
+        const idleX = Math.sin(now * IDLE_SPEED + i * 0.7) * IDLE_AMP;
+        const idleY = Math.cos(now * IDLE_SPEED * 0.85 + i * 1.3) * IDLE_AMP;
+
+        let rx = 0;
+        let ry = 0;
 
         if (p && p.active) {
           const rect = el.getBoundingClientRect();
@@ -104,16 +111,18 @@ export default function MorphingLogo({ pointerRef }) {
           if (dist < REPEL_RADIUS) {
             const force = 1 - dist / REPEL_RADIUS;
             const eased = force * force; // softer near the edge
-            tx = (dx / dist) * eased * REPEL_MAX;
-            ty = (dy / dist) * eased * REPEL_MAX;
+            rx = (dx / dist) * eased * REPEL_MAX;
+            ry = (dy / dist) * eased * REPEL_MAX;
           }
         }
 
-        o.x += (tx - o.x) * EASE;
-        o.y += (ty - o.y) * EASE;
-        const liveForce = Math.min(1, Math.hypot(o.x, o.y) / REPEL_MAX) || 0;
+        o.x += (rx + idleX - o.x) * EASE;
+        o.y += (ry + idleY - o.y) * EASE;
+        // Scale/rotation track the repulsion only, so idle drift stays a calm
+        // translate and never makes the logo pulse.
+        const liveForce = Math.min(1, Math.hypot(rx, ry) / REPEL_MAX) || 0;
         const scale = 1 + liveForce * 0.16;
-        const rot = (o.x / REPEL_MAX) * 6;
+        const rot = (rx / REPEL_MAX) * 6;
 
         el.style.transform = `translate3d(${o.x.toFixed(2)}px, ${o.y.toFixed(
           2
@@ -136,7 +145,7 @@ export default function MorphingLogo({ pointerRef }) {
   return (
     <h1
       aria-label="Trendplates"
-      className="select-none whitespace-nowrap text-center font-grotesk font-bold uppercase leading-[0.9] tracking-tight"
+      className="touch-none select-none whitespace-nowrap text-center font-grotesk font-bold uppercase leading-[0.9] tracking-tight"
       style={{ fontSize: "clamp(2rem, 12vw, 12rem)" }}
     >
       {WORD.split("").map((ch, i) => (

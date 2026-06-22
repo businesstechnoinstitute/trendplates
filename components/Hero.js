@@ -102,7 +102,7 @@ export default function Hero({ logos = [] }) {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="label absolute bottom-24 z-10 text-[0.6rem] text-smoke/70 sm:bottom-28"
           >
-            {isTouch ? "Touch and drag" : "Move your cursor"}
+            {isTouch ? "Drag the letters" : "Move your cursor"}
           </motion.p>
         )}
       </AnimatePresence>
