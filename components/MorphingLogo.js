@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import { FONT_VARS } from "@/lib/fonts";
 
 const WORD = "TRENDPLATES";
@@ -43,9 +49,45 @@ export default function MorphingLogo({ pointerRef }) {
   const charEls = useRef([]); // index -> element
   const offsets = useRef({}); // index -> { x, y }
   const rafRef = useRef(0);
+  const h1Ref = useRef(null);
+
+  // Fixed width (in em) per letter so swapping fonts never reflows the layout
+  // and the logo stops "popping". Each slot is sized to the widest version of
+  // that letter across all fonts, so no glyph is ever clipped or overlaps.
+  const [slots, setSlots] = useState(null);
 
   // Reset the element registry each render; ref callbacks repopulate on commit.
   charEls.current = [];
+
+  useLayoutEffect(() => {
+    const h1 = h1Ref.current;
+    if (!h1) return;
+
+    const measure = () => {
+      const probe = document.createElement("span");
+      probe.style.cssText =
+        "position:absolute;visibility:hidden;white-space:pre;pointer-events:none;";
+      h1.appendChild(probe);
+      const fs = parseFloat(getComputedStyle(h1).fontSize) || 16;
+      const ems = WORD.split("").map((ch) => {
+        let maxW = 0;
+        for (const f of FONT_VARS) {
+          probe.style.fontFamily = f;
+          probe.textContent = ch;
+          maxW = Math.max(maxW, probe.offsetWidth);
+        }
+        return maxW / fs; // store in em so it scales with the responsive size
+      });
+      h1.removeChild(probe);
+      setSlots(ems);
+    };
+
+    measure();
+    // Re-measure once web fonts have loaded (fallback metrics differ).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure).catch(() => {});
+    }
+  }, []);
 
   // After mount, scatter the fonts so the logo looks "reassembled" right away
   // (kept out of the initial render to avoid a hydration mismatch).
@@ -144,6 +186,7 @@ export default function MorphingLogo({ pointerRef }) {
 
   return (
     <h1
+      ref={h1Ref}
       aria-label="Trendplates"
       className="touch-none select-none whitespace-nowrap text-center font-grotesk font-bold uppercase leading-[0.9] tracking-tight"
       style={{ fontSize: "clamp(2rem, 12vw, 12rem)" }}
@@ -153,7 +196,15 @@ export default function MorphingLogo({ pointerRef }) {
           key={i}
           ref={setCharRef(i)}
           className="morph-char"
-          style={{ fontFamily: fonts[i] || FONT_VARS[0] }}
+          style={{
+            fontFamily: fonts[i] || FONT_VARS[0],
+            ...(slots
+              ? {
+                  width: `${slots[i]}em`,
+                  textAlign: "center",
+                }
+              : null),
+          }}
         >
           {ch}
         </span>
