@@ -21,12 +21,12 @@ export default function WhoWeWorkWith() {
   return (
     <section
       id="who-we-work-with"
-      className="relative z-10 mx-auto w-full max-w-5xl px-6 py-28 sm:py-36"
+      className="relative z-10 mx-auto w-full max-w-5xl px-6 py-20 sm:py-28"
     >
-      <p className="label mb-4 text-center text-[0.6rem] text-smoke">
+      <p className="label mb-5 text-center text-xs text-smoke sm:text-sm">
         Who we work with
       </p>
-      <h2 className="mx-auto mb-14 max-w-2xl text-center font-grotesk text-2xl font-semibold leading-tight tracking-tight text-paper sm:text-3xl">
+      <h2 className="mx-auto mb-14 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl">
         Built for the people moving dance music forward.
       </h2>
 

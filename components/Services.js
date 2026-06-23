@@ -19,9 +19,14 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative z-10 mx-auto w-full max-w-4xl px-6 py-28 sm:py-36"
+      className="relative z-10 mx-auto w-full max-w-4xl px-6 py-20 sm:py-28"
     >
-      <p className="label mb-8 text-center text-[0.6rem] text-smoke">Services</p>
+      <p className="label mb-5 text-center text-xs text-smoke sm:text-sm">
+        Services
+      </p>
+      <h2 className="mx-auto mb-12 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl">
+        Five ways we grow electronic music.
+      </h2>
 
       <motion.div
         variants={container}

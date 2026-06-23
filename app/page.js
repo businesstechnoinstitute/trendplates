@@ -5,6 +5,7 @@ import ViralStatement from "@/components/ViralStatement";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
 import Services from "@/components/Services";
 import About from "@/components/About";
+import BouncyBand from "@/components/BouncyBand";
 import LeadMagnet from "@/components/LeadMagnet";
 import Cursor from "@/components/Cursor";
 
@@ -62,9 +63,24 @@ export default function Home() {
 
       <ViralStatement />
 
+      <BouncyBand
+        className="h-40 sm:h-52"
+        words={["Discovery", "Clips", "Momentum", "Fans", "Reach", "Signal", "Drops"]}
+      />
+
       <WhoWeWorkWith />
 
+      <BouncyBand
+        className="h-40 sm:h-52"
+        words={["Culture", "Community", "Energy", "Scene", "Movement", "Underground", "Sound"]}
+      />
+
       <Services />
+
+      <BouncyBand
+        className="h-40 sm:h-52"
+        words={["Organic", "Attention", "Growth", "Bass", "Rave", "Creative", "Buzz"]}
+      />
 
       <About />
 

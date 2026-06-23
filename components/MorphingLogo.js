@@ -52,8 +52,9 @@ export default function MorphingLogo({ pointerRef }) {
   const h1Ref = useRef(null);
 
   // Fixed width (in em) per letter so swapping fonts never reflows the layout
-  // and the logo stops "popping". Each slot is sized to the widest version of
-  // that letter across all fonts, so no glyph is ever clipped or overlaps.
+  // and the logo stops "popping". Slots are sized to the base font so the word
+  // keeps tight, on-brand spacing (the widest fonts spill a touch, which reads
+  // as part of the morph rather than padding the whole logo out).
   const [slots, setSlots] = useState(null);
 
   // Reset the element registry each render; ref callbacks repopulate on commit.
@@ -69,14 +70,10 @@ export default function MorphingLogo({ pointerRef }) {
         "position:absolute;visibility:hidden;white-space:pre;pointer-events:none;";
       h1.appendChild(probe);
       const fs = parseFloat(getComputedStyle(h1).fontSize) || 16;
+      probe.style.fontFamily = FONT_VARS[0]; // measure in the base font
       const ems = WORD.split("").map((ch) => {
-        let maxW = 0;
-        for (const f of FONT_VARS) {
-          probe.style.fontFamily = f;
-          probe.textContent = ch;
-          maxW = Math.max(maxW, probe.offsetWidth);
-        }
-        return maxW / fs; // store in em so it scales with the responsive size
+        probe.textContent = ch;
+        return probe.offsetWidth / fs; // store in em so it scales responsively
       });
       h1.removeChild(probe);
       setSlots(ems);
@@ -189,7 +186,7 @@ export default function MorphingLogo({ pointerRef }) {
       ref={h1Ref}
       aria-label="Trendplates"
       className="touch-none select-none whitespace-nowrap text-center font-grotesk font-bold uppercase leading-[0.9] tracking-tight"
-      style={{ fontSize: "clamp(2rem, 12vw, 12rem)" }}
+      style={{ fontSize: "clamp(2rem, 10.5vw, 10.5rem)" }}
     >
       {WORD.split("").map((ch, i) => (
         <span

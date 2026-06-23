@@ -8,7 +8,7 @@ export default function ViralStatement() {
       id="what-we-do"
       className="relative z-10 mx-auto max-w-4xl px-6 py-28 text-center sm:py-36"
     >
-      <p className="label mb-8 text-[0.6rem] text-smoke">What we do</p>
+      <p className="label mb-6 text-xs text-smoke sm:text-sm">What we do</p>
 
       <RepelText
         text="We grow electronic music the way it actually spreads. Through culture, communities and content that travel, not paid ads."
