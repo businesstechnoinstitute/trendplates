@@ -29,16 +29,33 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
 
     const init = () => {
       const { width, height } = el.getBoundingClientRect();
+      const n = nodesRef.current.filter(Boolean).length || 1;
+      const colW = width / n;
+      const half = height / 2;
+      let i = 0;
       particles.current = nodesRef.current.map((node) => {
         if (!node) return null;
         const w = node.offsetWidth;
         const h = node.offsetHeight;
+        // Even spread across the width (with a little jitter), staggered into
+        // two rows, so nothing clusters on one side at load.
+        const slot = i++;
+        const jitter = (Math.random() - 0.5) * colW * 0.4;
+        const x = Math.max(
+          0,
+          Math.min(width - w, (slot + 0.5) * colW - w / 2 + jitter)
+        );
+        const row = slot % 2;
+        const y = Math.max(
+          0,
+          Math.min(height - h, row * half + Math.random() * Math.max(1, half - h))
+        );
         return {
           node,
           w,
           h,
-          x: Math.random() * Math.max(1, width - w),
-          y: Math.random() * Math.max(1, height - h),
+          x,
+          y,
           vx: (Math.random() - 0.5) * 0.25,
           vy: (Math.random() - 0.5) * 0.25,
         };
@@ -169,11 +186,12 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
             ref={(node) => (nodesRef.current[i] = node)}
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${encodeURIComponent(item)}`}
             alt=""
-            className="absolute left-0 top-0 h-8 w-auto select-none object-contain opacity-70 sm:h-10"
+            className="absolute left-0 top-0 h-12 w-auto select-none object-contain sm:h-14"
             style={{
-              // Clean monochrome (off-white) silhouette to stay on-brand.
-              // Remove this filter line to keep the logos' original colours.
-              filter: "brightness(0) invert(1)",
+              // Subtle, semi-transparent grey monochrome treatment.
+              // (invert(0.6) flattens any logo to a mid-grey; opacity fades it.)
+              filter: "brightness(0) invert(0.6)",
+              opacity: 0.4,
               willChange: "transform",
             }}
           />
