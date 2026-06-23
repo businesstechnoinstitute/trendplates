@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { AUDIENCES } from "@/lib/content";
+import RepelText from "./RepelText";
 
 const container = {
   hidden: {},
@@ -26,9 +27,13 @@ export default function WhoWeWorkWith() {
       <p className="label mb-5 text-center text-xs text-smoke sm:text-sm">
         Who we work with
       </p>
-      <h2 className="mx-auto mb-14 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl">
-        Built for the people moving dance music forward.
-      </h2>
+      <RepelText
+        as="h2"
+        text="Built for the people moving dance music forward."
+        radius={130}
+        max={22}
+        className="mx-auto mb-14 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
+      />
 
       <motion.div
         variants={container}

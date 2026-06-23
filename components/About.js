@@ -11,15 +11,13 @@ export default function About() {
     >
       <p className="label mb-6 text-xs text-smoke sm:text-sm">About</p>
 
-      <motion.h2
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
-      >
-        Built for the culture, not the algorithm.
-      </motion.h2>
+      <RepelText
+        as="h2"
+        text="Built for the culture, not the algorithm."
+        radius={130}
+        max={22}
+        className="mx-auto max-w-3xl font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
+      />
 
       <RepelText
         text="Trendplates is an organic growth agency built for electronic and dance music. We come from the culture, and we know records don't break because of ad spend. They break through communities, clips, moments and momentum. We build the systems that make that happen: fan-page networks, creative formats and culture-first campaigns that earn real attention and turn artists, labels and catalogues into movements."

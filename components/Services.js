@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SERVICES } from "@/lib/content";
+import RepelText from "./RepelText";
 
 const container = {
   hidden: {},
@@ -24,9 +25,13 @@ export default function Services() {
       <p className="label mb-5 text-center text-xs text-smoke sm:text-sm">
         Services
       </p>
-      <h2 className="mx-auto mb-12 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl">
-        Six ways we grow electronic music.
-      </h2>
+      <RepelText
+        as="h2"
+        text="Six ways we grow electronic music."
+        radius={130}
+        max={22}
+        className="mx-auto mb-12 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
+      />
 
       <motion.div
         variants={container}

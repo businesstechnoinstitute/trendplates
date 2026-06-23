@@ -13,7 +13,9 @@ export default function RepelText({
   className = "",
   radius = 130,
   max = 34,
+  as = "p",
 }) {
+  const Tag = as;
   const charEls = useRef([]);
   const base = useRef([]); // index -> { x, y } in document coordinates
   const offsets = useRef([]); // index -> { x, y } currently applied
@@ -123,7 +125,7 @@ export default function RepelText({
   const words = text.split(" ");
 
   return (
-    <p aria-label={text} className={className}>
+    <Tag aria-label={text} className={className}>
       {words.map((word, wi) => (
         <Fragment key={wi}>
           {wi > 0 ? " " : null}
@@ -148,6 +150,6 @@ export default function RepelText({
           </span>
         </Fragment>
       ))}
-    </p>
+    </Tag>
   );
 }
