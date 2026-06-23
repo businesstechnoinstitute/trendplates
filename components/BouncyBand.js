@@ -113,8 +113,10 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
       if (visible) {
         const { width, height } = el.getBoundingClientRect();
         const p = pointer.current;
-        particles.current.forEach((pt) => {
-          if (!pt) return;
+        const list = particles.current.filter(Boolean);
+
+        // 1) Move each logo (cursor repulsion, friction, drift, integrate).
+        list.forEach((pt) => {
           if (p.active) {
             const dx = pt.x + pt.w / 2 - p.x;
             const dy = pt.y + pt.h / 2 - p.y;
@@ -138,6 +140,52 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
           }
           pt.x += pt.vx * dt;
           pt.y += pt.vy * dt;
+        });
+
+        // 2) Resolve logo-vs-logo collisions so they never stick together:
+        //    separate along the axis of least overlap (keeping a small gap)
+        //    and swap that velocity component for an elastic rebound.
+        const PAD = 12;
+        for (let a = 0; a < list.length; a++) {
+          for (let b = a + 1; b < list.length; b++) {
+            const A = list[a];
+            const B = list[b];
+            const ox =
+              Math.min(A.x + A.w, B.x + B.w) - Math.max(A.x, B.x) + PAD;
+            const oy =
+              Math.min(A.y + A.h, B.y + B.h) - Math.max(A.y, B.y) + PAD;
+            if (ox > 0 && oy > 0) {
+              if (ox < oy) {
+                const sep = ox / 2;
+                if (A.x + A.w / 2 < B.x + B.w / 2) {
+                  A.x -= sep;
+                  B.x += sep;
+                } else {
+                  A.x += sep;
+                  B.x -= sep;
+                }
+                const t = A.vx;
+                A.vx = B.vx;
+                B.vx = t;
+              } else {
+                const sep = oy / 2;
+                if (A.y + A.h / 2 < B.y + B.h / 2) {
+                  A.y -= sep;
+                  B.y += sep;
+                } else {
+                  A.y += sep;
+                  B.y -= sep;
+                }
+                const t = A.vy;
+                A.vy = B.vy;
+                B.vy = t;
+              }
+            }
+          }
+        }
+
+        // 3) Keep them inside the band (bounce off the walls) and render.
+        list.forEach((pt) => {
           if (pt.x < 0) {
             pt.x = 0;
             pt.vx = Math.abs(pt.vx);

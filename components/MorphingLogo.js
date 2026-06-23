@@ -17,12 +17,30 @@ const EASE = 0.16; // lerp factor for the spring-like return
 const IDLE_AMP = 6; // px: gentle "alive" drift each letter has at rest
 const IDLE_SPEED = 0.0011; // radians/ms for the idle drift
 
+// Visual family of each font, so we can bias swaps toward a *different* family
+// (serif / mono / display vs sans) and make each morph clearly noticeable.
+const FAMILY = {
+  "var(--font-space-grotesk)": "sans",
+  "var(--font-inter)": "sans",
+  "var(--font-archivo)": "sans",
+  "var(--font-playfair)": "serif",
+  "var(--font-space-mono)": "mono",
+  "var(--font-bricolage)": "display",
+  "var(--font-syne)": "display2",
+};
+
 function randomFont(exclude) {
-  let f = FONT_VARS[Math.floor(Math.random() * FONT_VARS.length)];
-  if (FONT_VARS.length > 1) {
-    while (f === exclude) {
-      f = FONT_VARS[Math.floor(Math.random() * FONT_VARS.length)];
-    }
+  // ~70% of the time, jump to a different type family so the change reads.
+  let pool = FONT_VARS;
+  if (exclude && Math.random() < 0.7) {
+    const exFam = FAMILY[exclude];
+    const diff = FONT_VARS.filter((f) => FAMILY[f] !== exFam);
+    if (diff.length) pool = diff;
+  }
+  let f = pool[Math.floor(Math.random() * pool.length)];
+  if (f === exclude && FONT_VARS.length > 1) {
+    const others = FONT_VARS.filter((v) => v !== exclude);
+    f = others[Math.floor(Math.random() * others.length)];
   }
   return f;
 }
@@ -99,8 +117,8 @@ export default function MorphingLogo({ pointerRef }) {
     const total = WORD.length;
 
     const tick = () => {
-      // 1–3 distinct random letters change this tick.
-      const count = Math.min(total, 1 + Math.floor(Math.random() * 3));
+      // 2–4 distinct random letters change this tick.
+      const count = Math.min(total, 2 + Math.floor(Math.random() * 3));
       const ids = new Set();
       while (ids.size < count) {
         ids.add(Math.floor(Math.random() * total));
