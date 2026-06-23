@@ -167,7 +167,7 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
           <img
             key={item + i}
             ref={(node) => (nodesRef.current[i] = node)}
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${item}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${encodeURIComponent(item)}`}
             alt=""
             className="absolute left-0 top-0 h-8 w-auto select-none object-contain opacity-70 sm:h-10"
             style={{

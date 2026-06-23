@@ -179,7 +179,7 @@ export default function FloatingLogos({ pointerRef, logos = [] }) {
           <img
             key={item + i}
             ref={(el) => (nodesRef.current[i] = el)}
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${item}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${encodeURIComponent(item)}`}
             alt=""
             className="absolute left-0 top-0 h-7 w-auto select-none object-contain opacity-50 sm:h-9"
             style={{
