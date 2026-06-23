@@ -4,12 +4,19 @@ import { useEffect, useRef } from "react";
 import { FONT_VARS } from "@/lib/fonts";
 
 /**
- * A horizontal band that fills the space between sections with words that
+ * A horizontal band that fills the space between sections with items that
  * gently drift, bounce off the band's edges (so they "only stay between those
  * segments") and flee the cursor/touch when it's over the band. Self-contained
  * physics via a single rAF loop, paused when the band is off-screen.
+ *
+ * Pass `logos` (filenames in /public/logos) to bounce client logos, or `words`
+ * to bounce text. If logos are present they win; otherwise it falls back to
+ * the words (handy before any logo files have been added).
  */
-export default function BouncyBand({ words, className = "" }) {
+export default function BouncyBand({ words = [], logos = [], className = "" }) {
+  const useImages = logos.length > 0;
+  const items = useImages ? logos : words;
+
   const containerRef = useRef(null);
   const nodesRef = useRef([]);
   const particles = useRef([]);
@@ -38,6 +45,15 @@ export default function BouncyBand({ words, className = "" }) {
       });
     };
     init();
+
+    // Logos report width/height only once loaded, so re-init when they do.
+    const imgs = useImages
+      ? nodesRef.current.filter((n) => n && n.tagName === "IMG")
+      : [];
+    const onImgLoad = () => init();
+    imgs.forEach((img) => {
+      if (!img.complete) img.addEventListener("load", onImgLoad);
+    });
 
     if (reduce) {
       particles.current.forEach((p) => {
@@ -136,8 +152,9 @@ export default function BouncyBand({ words, className = "" }) {
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("resize", onResize);
+      imgs.forEach((img) => img.removeEventListener("load", onImgLoad));
     };
-  }, []);
+  }, [useImages, items.length]);
 
   return (
     <div
@@ -145,16 +162,35 @@ export default function BouncyBand({ words, className = "" }) {
       aria-hidden="true"
       className={`relative z-10 mx-auto w-full max-w-6xl overflow-hidden px-6 ${className}`}
     >
-      {words.map((wd, i) => (
-        <span
-          key={wd + i}
-          ref={(node) => (nodesRef.current[i] = node)}
-          className="absolute left-0 top-0 select-none whitespace-nowrap font-grotesk text-sm font-medium uppercase tracking-[0.2em] text-smoke/25 sm:text-base"
-          style={{ fontFamily: FONT_VARS[i % FONT_VARS.length], willChange: "transform" }}
-        >
-          {wd}
-        </span>
-      ))}
+      {items.map((item, i) =>
+        useImages ? (
+          <img
+            key={item + i}
+            ref={(node) => (nodesRef.current[i] = node)}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${item}`}
+            alt=""
+            className="absolute left-0 top-0 h-8 w-auto select-none object-contain opacity-70 sm:h-10"
+            style={{
+              // Clean monochrome (off-white) silhouette to stay on-brand.
+              // Remove this filter line to keep the logos' original colours.
+              filter: "brightness(0) invert(1)",
+              willChange: "transform",
+            }}
+          />
+        ) : (
+          <span
+            key={item + i}
+            ref={(node) => (nodesRef.current[i] = node)}
+            className="absolute left-0 top-0 select-none whitespace-nowrap font-grotesk text-sm font-medium uppercase tracking-[0.2em] text-smoke/25 sm:text-base"
+            style={{
+              fontFamily: FONT_VARS[i % FONT_VARS.length],
+              willChange: "transform",
+            }}
+          >
+            {item}
+          </span>
+        )
+      )}
     </div>
   );
 }

@@ -59,12 +59,15 @@ export default function Home() {
         </nav>
       </header>
 
-      <Hero logos={logos} />
+      <Hero />
 
       <ViralStatement />
 
+      {/* Client logos live here (drop PNGs in /public/logos). Falls back to
+          the bouncy words until any logos are present. */}
       <BouncyBand
         className="h-40 sm:h-52"
+        logos={logos}
         words={["Discovery", "Clips", "Momentum", "Fans", "Reach", "Signal", "Drops"]}
       />
 
