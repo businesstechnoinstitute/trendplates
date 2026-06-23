@@ -25,7 +25,7 @@ export default function Services() {
         Services
       </p>
       <h2 className="mx-auto mb-12 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl">
-        Five ways we grow electronic music.
+        Six ways we grow electronic music.
       </h2>
 
       <motion.div
