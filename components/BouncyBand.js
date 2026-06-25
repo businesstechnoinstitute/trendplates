@@ -29,26 +29,34 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
 
     const init = () => {
       const { width, height } = el.getBoundingClientRect();
-      const n = nodesRef.current.filter(Boolean).length || 1;
-      const colW = width / n;
-      const half = height / 2;
+      const valid = nodesRef.current.filter(Boolean);
+      const n = valid.length || 1;
+      // Grid sized to the actual space + widest item, so items start evenly
+      // spread and non-overlapping at any viewport width (key on mobile, where
+      // a narrow band can't fit them all in one or two rows).
+      const maxW = Math.max(50, ...valid.map((node) => node.offsetWidth || 0));
+      const gap = 14;
+      const cols = Math.max(1, Math.min(n, Math.floor(width / (maxW + gap))));
+      const rows = Math.ceil(n / cols);
+      const cellW = width / cols;
+      const cellH = height / rows;
       let i = 0;
       particles.current = nodesRef.current.map((node) => {
         if (!node) return null;
         const w = node.offsetWidth;
         const h = node.offsetHeight;
-        // Even spread across the width (with a little jitter), staggered into
-        // two rows, so nothing clusters on one side at load.
-        const slot = i++;
-        const jitter = (Math.random() - 0.5) * colW * 0.4;
+        const idx = i++;
+        const col = idx % cols;
+        const row = Math.floor(idx / cols);
+        const jx = (Math.random() - 0.5) * Math.max(0, cellW - w) * 0.5;
+        const jy = (Math.random() - 0.5) * Math.max(0, cellH - h) * 0.5;
         const x = Math.max(
           0,
-          Math.min(width - w, (slot + 0.5) * colW - w / 2 + jitter)
+          Math.min(width - w, col * cellW + (cellW - w) / 2 + jx)
         );
-        const row = slot % 2;
         const y = Math.max(
           0,
-          Math.min(height - h, row * half + Math.random() * Math.max(1, half - h))
+          Math.min(height - h, row * cellH + (cellH - h) / 2 + jy)
         );
         return {
           node,
@@ -56,8 +64,8 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
           h,
           x,
           y,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: (Math.random() - 0.5) * 0.2,
         };
       });
     };
@@ -234,7 +242,7 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
             ref={(node) => (nodesRef.current[i] = node)}
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${encodeURIComponent(item)}`}
             alt=""
-            className="absolute left-0 top-0 h-12 w-auto select-none object-contain sm:h-14"
+            className="absolute left-0 top-0 h-8 w-auto select-none object-contain sm:h-14"
             style={{
               // Subtle, semi-transparent grey monochrome treatment.
               // (invert(0.6) flattens any logo to a mid-grey; opacity fades it.)
