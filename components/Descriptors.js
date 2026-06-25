@@ -25,7 +25,7 @@ export default function Descriptors() {
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="whitespace-nowrap font-grotesk text-base font-medium text-paper sm:text-lg"
+            className="whitespace-nowrap font-grotesk text-base font-medium text-acid sm:text-lg"
           >
             {DESCRIPTORS[i]}
           </motion.span>

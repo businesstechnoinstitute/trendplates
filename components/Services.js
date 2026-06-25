@@ -46,7 +46,7 @@ export default function Services() {
             variants={row}
             className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-5 gap-y-2 border-t border-white/10 py-7 transition-colors duration-300 hover:bg-white/[0.02] sm:grid-cols-[3.5rem_minmax(0,1.1fr)_minmax(0,1.4fr)] sm:gap-x-8 sm:py-9"
           >
-            <span className="font-mono text-xs text-smoke transition-colors duration-300 group-hover:text-paper">
+            <span className="font-mono text-xs text-smoke transition-colors duration-300 group-hover:text-acid">
               {String(i + 1).padStart(2, "0")}
             </span>
             <h3 className="font-grotesk text-xl font-semibold tracking-tight text-paper transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">

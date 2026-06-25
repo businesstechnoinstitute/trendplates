@@ -63,7 +63,7 @@ export default function LeadMagnet() {
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-paper placeholder:text-smoke/60 focus:border-paper/40 focus:outline-none"
+              className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-paper placeholder:text-smoke/60 focus:border-acid/70 focus:outline-none"
             />
             <input
               type="email"
@@ -71,7 +71,7 @@ export default function LeadMagnet() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-paper placeholder:text-smoke/60 focus:border-paper/40 focus:outline-none"
+              className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-paper placeholder:text-smoke/60 focus:border-acid/70 focus:outline-none"
             />
             <button
               type="submit"

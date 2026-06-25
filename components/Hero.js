@@ -63,6 +63,15 @@ export default function Hero({ logos = [] }) {
 
   return (
     <section className="hero-cursor-none relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-4">
+      {/* Depth: a soft glow behind the logo (faint green core, grey halo). */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[70vh] w-[120vw] max-w-[1100px] -translate-x-1/2 -translate-y-1/2"
+        style={{
+          background:
+            "radial-gradient(closest-side, rgba(198,255,58,0.06), rgba(255,255,255,0.03) 45%, transparent 72%)",
+        }}
+      />
       <FloatingLogos pointerRef={pointerRef} logos={logos} />
 
       <div className="relative z-10 flex flex-col items-center">
@@ -117,7 +126,7 @@ export default function Hero({ logos = [] }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 0.8 }}
-        className="label absolute bottom-8 z-10 flex flex-col items-center gap-2 text-[0.55rem] text-smoke/70 transition-colors hover:text-paper"
+        className="label absolute bottom-8 z-10 flex flex-col items-center gap-2 text-[0.55rem] text-smoke/70 transition-colors hover:text-acid"
         aria-label="Scroll to the playbook section"
       >
         Scroll

@@ -28,6 +28,16 @@ export default function Home() {
 
   return (
     <main className="relative">
+      {/* Depth: a faint top light and a soft bottom vignette so the black
+          reads as intentional rather than flat. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(110% 70% at 50% -10%, rgba(255,255,255,0.05), transparent 55%), radial-gradient(100% 60% at 50% 115%, rgba(0,0,0,0.6), transparent 60%)",
+        }}
+      />
       <Cursor />
       <div className="scanlines" />
       <div className="grain" />
@@ -40,19 +50,19 @@ export default function Home() {
         <nav className="hidden items-center gap-6 sm:flex">
           <a
             href="#who-we-work-with"
-            className="label text-[0.6rem] text-smoke transition-colors hover:text-paper"
+            className="label text-[0.6rem] text-smoke transition-colors hover:text-acid"
           >
             Who
           </a>
           <a
             href="#services"
-            className="label text-[0.6rem] text-smoke transition-colors hover:text-paper"
+            className="label text-[0.6rem] text-smoke transition-colors hover:text-acid"
           >
             Services
           </a>
           <a
             href="#about"
-            className="label text-[0.6rem] text-smoke transition-colors hover:text-paper"
+            className="label text-[0.6rem] text-smoke transition-colors hover:text-acid"
           >
             About
           </a>

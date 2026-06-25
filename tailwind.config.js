@@ -10,6 +10,7 @@ module.exports = {
         ink: "#0a0a0a",
         paper: "#f2f0ea",
         smoke: "#8a8a86",
+        acid: "#c6ff3a",
       },
       fontFamily: {
         grotesk: ["var(--font-space-grotesk)", "sans-serif"],
