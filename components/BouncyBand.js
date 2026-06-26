@@ -31,12 +31,15 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
       const { width, height } = el.getBoundingClientRect();
       const valid = nodesRef.current.filter(Boolean);
       const n = valid.length || 1;
-      // Grid sized to the actual space + widest item, so items start evenly
-      // spread and non-overlapping at any viewport width (key on mobile, where
-      // a narrow band can't fit them all in one or two rows).
-      const maxW = Math.max(50, ...valid.map((node) => node.offsetWidth || 0));
+      // Grid sized to the actual space and a *typical* item width (median), so
+      // one unusually wide logo doesn't collapse the whole grid to one column.
+      // The collision pass handles any minor overflow from the widest items.
+      const widths = valid
+        .map((node) => node.offsetWidth || 50)
+        .sort((a, b) => a - b);
+      const medW = widths[Math.floor(widths.length / 2)] || 60;
       const gap = 14;
-      const cols = Math.max(1, Math.min(n, Math.floor(width / (maxW + gap))));
+      const cols = Math.max(1, Math.min(n, Math.floor(width / (medW + gap))));
       const rows = Math.ceil(n / cols);
       const cellW = width / cols;
       const cellH = height / rows;
@@ -242,7 +245,12 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
             ref={(node) => (nodesRef.current[i] = node)}
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/logos/${encodeURIComponent(item)}`}
             alt=""
-            className="absolute left-0 top-0 h-8 w-auto select-none object-contain sm:h-14"
+            // Universal renders 75% bigger than the base; the rest are +50%.
+            className={`absolute left-0 top-0 w-auto select-none object-contain ${
+              /universal/i.test(item)
+                ? "h-14 sm:h-[98px]"
+                : "h-12 sm:h-[84px]"
+            }`}
             style={{
               // Subtle, semi-transparent grey monochrome treatment.
               // (invert(0.6) flattens any logo to a mid-grey; opacity fades it.)

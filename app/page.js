@@ -76,7 +76,7 @@ export default function Home() {
       {/* Client logos live here (drop PNGs in /public/logos). Falls back to
           the bouncy words until any logos are present. */}
       <BouncyBand
-        className="h-60 sm:h-52"
+        className="h-80 sm:h-64"
         logos={logos}
         words={["Discovery", "Clips", "Momentum", "Fans", "Reach", "Signal", "Drops"]}
       />

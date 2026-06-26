@@ -3,14 +3,13 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Desktop pointer treatment: a soft light pool that follows the cursor (depth),
- * an acid-green ring with a neon glow, and a small green dot. Hidden on touch
- * devices. Disabled under reduced motion.
+ * Desktop pointer treatment: an acid-green ring with a neon glow plus a small
+ * green dot that trail the cursor. Hidden on touch devices. Disabled under
+ * reduced motion.
  */
 export default function Cursor() {
   const ringRef = useRef(null);
   const dotRef = useRef(null);
-  const glowRef = useRef(null);
 
   useEffect(() => {
     const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
@@ -21,13 +20,9 @@ export default function Cursor() {
 
     const ring = ringRef.current;
     const dot = dotRef.current;
-    const glow = glowRef.current;
-    // Start well off-screen so the light pool isn't parked in a corner before
-    // the first pointer move.
+    // Start off-screen so nothing is parked in a corner before the first move.
     let rx = -600;
     let ry = -600;
-    let gx = -600;
-    let gy = -600;
     let tx = -600;
     let ty = -600;
     let raf = 0;
@@ -41,10 +36,7 @@ export default function Cursor() {
     const loop = () => {
       rx += (tx - rx) * 0.18;
       ry += (ty - ry) * 0.18;
-      gx += (tx - gx) * 0.08; // slower, for a trailing light pool
-      gy += (ty - gy) * 0.08;
       if (ring) ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      if (glow) glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
       raf = requestAnimationFrame(loop);
     };
 
@@ -58,19 +50,6 @@ export default function Cursor() {
 
   return (
     <>
-      {/* Soft light pool for depth (mostly neutral, faint green core). */}
-      <div
-        ref={glowRef}
-        aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-0 hidden h-[520px] w-[520px] rounded-full [@media(pointer:fine)]:block"
-        style={{
-          marginLeft: "-260px",
-          marginTop: "-260px",
-          transform: "translate3d(-600px, -600px, 0)",
-          background:
-            "radial-gradient(circle, rgba(198,255,58,0.06) 0%, rgba(255,255,255,0.03) 30%, transparent 65%)",
-        }}
-      />
       <div
         ref={ringRef}
         className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-10 w-10 rounded-full border border-acid/70 [@media(pointer:fine)]:block"
