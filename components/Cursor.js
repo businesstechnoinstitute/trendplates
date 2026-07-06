@@ -3,9 +3,9 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Desktop pointer treatment: an acid-green ring with a neon glow plus a small
- * green dot that trail the cursor. Hidden on touch devices. Disabled under
- * reduced motion.
+ * Desktop pointer treatment: a plain acid-green ring plus a small green dot
+ * that trail the cursor (no glow/halo). Hidden on touch devices. Disabled
+ * under reduced motion.
  */
 export default function Cursor() {
   const ringRef = useRef(null);
@@ -57,7 +57,6 @@ export default function Cursor() {
           marginLeft: "-20px",
           marginTop: "-20px",
           transform: "translate3d(-600px, -600px, 0)",
-          boxShadow: "0 0 14px rgba(198,255,58,0.45)",
         }}
       />
       <div
