@@ -16,7 +16,7 @@ export default function About() {
         text="Built for the culture, not the algorithm."
         radius={130}
         max={22}
-        className="mx-auto max-w-3xl font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
+        className="mx-auto max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
       />
 
       <RepelText

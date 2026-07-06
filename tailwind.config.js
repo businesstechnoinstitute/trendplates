@@ -20,6 +20,8 @@ module.exports = {
         mono: ["var(--font-space-mono)", "monospace"],
         bricolage: ["var(--font-bricolage)", "sans-serif"],
         syne: ["var(--font-syne)", "sans-serif"],
+        // Headings, nav, labels and CTAs sitewide.
+        display: ["var(--font-unbounded)", "sans-serif"],
       },
     },
   },

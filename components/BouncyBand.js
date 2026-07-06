@@ -252,10 +252,12 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
                 : "h-12 sm:h-[84px]"
             }`}
             style={{
-              // Subtle, semi-transparent grey monochrome treatment.
-              // (invert(0.6) flattens any logo to a mid-grey; opacity fades it.)
-              filter: "brightness(0) invert(0.6)",
-              opacity: 0.4,
+              // Faded acid-green monochrome treatment, colour-matched to the
+              // --accent hex (#c6ff3a) via canvas sampling rather than a
+              // hand-guessed hue-rotate value.
+              filter:
+                "brightness(0) invert(1) sepia(1) saturate(1300%) hue-rotate(20deg) contrast(110%)",
+              opacity: 0.32,
               willChange: "transform",
             }}
           />
@@ -263,7 +265,7 @@ export default function BouncyBand({ words = [], logos = [], className = "" }) {
           <span
             key={item + i}
             ref={(node) => (nodesRef.current[i] = node)}
-            className="absolute left-0 top-0 select-none whitespace-nowrap font-grotesk text-sm font-medium uppercase tracking-[0.2em] text-smoke/25 sm:text-base"
+            className="absolute left-0 top-0 select-none whitespace-nowrap font-grotesk text-sm font-medium uppercase tracking-[0.2em] text-acid/20 sm:text-base"
             style={{
               fontFamily: FONT_VARS[i % FONT_VARS.length],
               willChange: "transform",

@@ -62,7 +62,7 @@ export default function LeadMagnet() {
         className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 sm:p-12"
       >
         <p className="label mb-4 text-[0.6rem] text-smoke">Free Download</p>
-        <h2 className="font-grotesk text-3xl font-bold leading-tight sm:text-4xl">
+        <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">
           25 Things To Check Before You Post on TikTok
         </h2>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-smoke sm:text-base">
@@ -76,7 +76,7 @@ export default function LeadMagnet() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 rounded-xl border border-white/10 bg-white/[0.03] p-6 text-center"
           >
-            <p className="font-grotesk text-lg font-semibold text-paper">
+            <p className="font-display text-lg font-semibold text-paper">
               You&apos;re in.
             </p>
             <p className="mt-1 text-sm text-smoke">
@@ -107,7 +107,7 @@ export default function LeadMagnet() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="group relative w-full overflow-hidden rounded-xl bg-paper px-6 py-3 font-grotesk font-semibold text-ink transition-transform active:scale-[0.98] disabled:opacity-60 sm:w-auto"
+              className="group relative w-full overflow-hidden rounded-xl bg-paper px-6 py-3 font-display font-semibold text-ink transition-transform active:scale-[0.98] disabled:opacity-60 sm:w-auto"
             >
               {status === "sending" ? "Sending…" : "Send Me the Checklist"}
             </button>

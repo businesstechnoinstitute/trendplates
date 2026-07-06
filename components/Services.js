@@ -30,7 +30,7 @@ export default function Services() {
         text="Six ways we grow electronic music."
         radius={130}
         max={22}
-        className="mx-auto mb-12 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
+        className="mx-auto mb-12 max-w-3xl text-center font-display text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
       />
 
       <motion.div
@@ -49,7 +49,7 @@ export default function Services() {
             <span className="font-mono text-xs text-smoke transition-colors duration-300 group-hover:text-acid">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <h3 className="font-grotesk text-xl font-semibold tracking-tight text-paper transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
+            <h3 className="font-display text-xl font-semibold tracking-tight text-paper transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
               {s.title}
             </h3>
             <p className="col-span-2 max-w-md text-sm leading-relaxed text-smoke transition-colors duration-300 group-hover:text-paper/80 sm:col-span-1">

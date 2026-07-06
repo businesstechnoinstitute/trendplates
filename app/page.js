@@ -44,7 +44,7 @@ export default function Home() {
 
       {/* Top bar */}
       <header className="absolute left-0 top-0 z-30 flex w-full items-center justify-between px-6 py-6 sm:px-10">
-        <span className="label font-grotesk text-xs font-semibold text-paper">
+        <span className="label font-display text-xs font-semibold text-paper">
           Trendplates
         </span>
         <nav className="hidden items-center gap-6 sm:flex">
@@ -100,7 +100,7 @@ export default function Home() {
       <LeadMagnet />
 
       <footer className="relative z-10 border-t border-white/10 px-6 py-12 text-center">
-        <p className="font-grotesk text-sm font-medium text-paper/80">
+        <p className="font-display text-sm font-medium text-paper/80">
           Organic Growth Systems for Electronic Dance Music
         </p>
         <p className="label mt-4 text-[0.6rem] text-smoke/60">

@@ -14,7 +14,7 @@ export default function ViralStatement() {
         text="We grow electronic music the way it actually spreads. Through culture, communities and content that travel, not paid ads."
         radius={120}
         max={26}
-        className="font-grotesk text-2xl font-semibold leading-[1.15] tracking-tight text-paper sm:text-4xl sm:leading-[1.15]"
+        className="font-display text-2xl font-semibold leading-[1.15] tracking-tight text-paper sm:text-4xl sm:leading-[1.15]"
       />
 
       <RepelText

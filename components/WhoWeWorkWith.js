@@ -32,7 +32,7 @@ export default function WhoWeWorkWith() {
         text="Built for the people moving dance music forward."
         radius={130}
         max={22}
-        className="mx-auto mb-14 max-w-3xl text-center font-grotesk text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
+        className="mx-auto mb-14 max-w-3xl text-center font-display text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
       />
 
       <motion.div
@@ -48,7 +48,7 @@ export default function WhoWeWorkWith() {
             variants={card}
             className="group bg-ink p-7 transition-colors duration-300 hover:bg-white/[0.02] sm:p-8"
           >
-            <h3 className="font-grotesk text-lg font-semibold tracking-tight text-paper">
+            <h3 className="font-display text-lg font-semibold tracking-tight text-paper">
               {a.title}
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-smoke transition-colors duration-300 group-hover:text-paper/80">
