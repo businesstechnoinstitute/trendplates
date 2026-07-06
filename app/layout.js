@@ -1,5 +1,6 @@
 import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
+import Analytics from "@/components/Analytics";
 
 export const metadata = {
   title: "Trendplates | Organic Growth Systems for Electronic Dance Music",
@@ -23,7 +24,10 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={fontVariables}>
-      <body className="bg-ink text-paper antialiased">{children}</body>
+      <body className="bg-ink text-paper antialiased">
+        <Analytics />
+        {children}
+      </body>
     </html>
   );
 }

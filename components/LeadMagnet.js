@@ -2,20 +2,51 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { trackLead } from "@/lib/analytics";
+
+// ConvertKit ("Kit") is the recommended ESP for this: its forms are built
+// specifically to deliver a "content upgrade" (this PDF) automatically on
+// signup. The Form ID and the (public) API Key both live on the form's
+// embed/settings page in your ConvertKit dashboard. Use the "API Key", never
+// the "API Secret" — the API Key is the one meant to be used client-side,
+// the same way ConvertKit's own embeddable JS forms work.
+const CONVERTKIT_FORM_ID = process.env.NEXT_PUBLIC_CONVERTKIT_FORM_ID;
+const CONVERTKIT_API_KEY = process.env.NEXT_PUBLIC_CONVERTKIT_API_KEY;
 
 export default function LeadMagnet() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | done
+  const [status, setStatus] = useState("idle"); // idle | sending | done | error
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
     setStatus("sending");
-    // TODO: wire this to your email tool (Mailchimp / ConvertKit / Klaviyo /
-    // a /api route). For now we simulate success.
-    await new Promise((r) => setTimeout(r, 700));
-    setStatus("done");
+
+    try {
+      if (CONVERTKIT_FORM_ID && CONVERTKIT_API_KEY) {
+        const res = await fetch(
+          `https://api.convertkit.com/v3/forms/${CONVERTKIT_FORM_ID}/subscribe`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              api_key: CONVERTKIT_API_KEY,
+              email,
+              first_name: name,
+            }),
+          }
+        );
+        if (!res.ok) throw new Error("ConvertKit subscribe failed");
+      } else {
+        // Not wired up yet: simulate success so the form still demos cleanly.
+        await new Promise((r) => setTimeout(r, 700));
+      }
+      trackLead({ email });
+      setStatus("done");
+    } catch (err) {
+      setStatus("error");
+    }
   };
 
   return (
@@ -82,6 +113,17 @@ export default function LeadMagnet() {
             </button>
           </form>
         )}
+
+        {status === "error" && (
+          <p className="mt-3 text-xs text-red-400">
+            Something went wrong. Try again, or email us at{" "}
+            <a href="mailto:trendplates@gmail.com" className="underline">
+              trendplates@gmail.com
+            </a>
+            .
+          </p>
+        )}
+
         <p className="mt-4 text-xs text-smoke/60">
           No spam. Unsubscribe anytime.
         </p>

@@ -26,7 +26,19 @@ jobs:
       - run: npm ci
       - name: Set base path to /<repo>
         run: echo "PAGES_BASE_PATH=/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_ENV"
-      - run: npm run build
+      - name: Build
+        # Analytics/lead-capture vars are optional: set them as repository
+        # "Variables" (Settings → Secrets and variables → Actions → Variables)
+        # to enable each on this mirror too. Unset ones are simply empty.
+        env:
+          NEXT_PUBLIC_CONVERTKIT_FORM_ID: ${{ vars.NEXT_PUBLIC_CONVERTKIT_FORM_ID }}
+          NEXT_PUBLIC_CONVERTKIT_API_KEY: ${{ vars.NEXT_PUBLIC_CONVERTKIT_API_KEY }}
+          NEXT_PUBLIC_GTM_ID: ${{ vars.NEXT_PUBLIC_GTM_ID }}
+          NEXT_PUBLIC_META_PIXEL_ID: ${{ vars.NEXT_PUBLIC_META_PIXEL_ID }}
+          NEXT_PUBLIC_TIKTOK_PIXEL_ID: ${{ vars.NEXT_PUBLIC_TIKTOK_PIXEL_ID }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ vars.NEXT_PUBLIC_POSTHOG_KEY }}
+          NEXT_PUBLIC_POSTHOG_HOST: ${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}
+        run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out

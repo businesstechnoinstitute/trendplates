@@ -21,8 +21,16 @@ npm run build && npm start   # production
 
 ## Deploy
 
-Push to GitHub and import into [Vercel](https://vercel.com) - zero config.
-(It's a static-friendly Next.js app, so Netlify / any Node host works too.)
+This is a static export (`output: "export"` in `next.config.mjs`) so it can be
+hosted anywhere that serves static files.
+
+- **Cloudflare Pages** (primary): connect the repo, build command
+  `npm run build`, output directory `out`. Leave `PAGES_BASE_PATH` unset so
+  assets resolve at the domain root.
+- **GitHub Pages** (mirror, auto-deploys via `.github/workflows/deploy.yml`):
+  every push to `main` builds and publishes to
+  `https://<user>.github.io/<repo>/`. This one needs `PAGES_BASE_PATH` set to
+  `/<repo>` (the workflow does this automatically).
 
 ## The signature effects
 
@@ -58,9 +66,41 @@ Other quick edits:
 - **Logo repulsion feel**: `REPEL_RADIUS` / `REPEL_MAX` / `EASE` in `MorphingLogo.js`.
 - **Description copy + its repel feel**: `components/ViralStatement.js`
   (`radius` / `max` props on `<RepelText>`).
-- **Lead form submission**: `components/LeadMagnet.js` has a `TODO` where the
-  fake submit lives - wire it to Mailchimp / ConvertKit / Klaviyo or a Next.js
-  `/api` route.
+- **Lead form submission**: wired to ConvertKit (see "Analytics & lead
+  capture" below). Until the env vars are set, it simulates success so the
+  form still demos cleanly.
+
+## Analytics & lead capture
+
+Everything below is **opt-in via environment variables set at build time**.
+Leave any of them unset and that tool simply never loads - no errors, no code
+changes needed later, just add the variable and redeploy.
+
+| Variable | What it's for | Where to get it |
+| --- | --- | --- |
+| `NEXT_PUBLIC_CONVERTKIT_FORM_ID` | Delivers the PDF/checklist automatically on signup | ConvertKit (Kit) → the form's embed code |
+| `NEXT_PUBLIC_CONVERTKIT_API_KEY` | Same as above (pairs with the Form ID) | ConvertKit → Account Settings → Advanced → **API Key** (not "API Secret" - the API Key is the one meant to be used in the browser, same as ConvertKit's own embeddable forms) |
+| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container - manage GA4 / other tags without touching code again | [tagmanager.google.com](https://tagmanager.google.com) → container ID, format `GTM-XXXXXXX` |
+| `NEXT_PUBLIC_META_PIXEL_ID` | Meta (Facebook/Instagram) Pixel - retargeting, conversions, lookalikes | Meta Events Manager → Data Sources → your pixel → Settings |
+| `NEXT_PUBLIC_TIKTOK_PIXEL_ID` | TikTok Pixel - conversion tracking, retargeting | TikTok Ads Manager → Assets → Events → Web Events |
+| `NEXT_PUBLIC_POSTHOG_KEY` | PostHog product analytics - autocapture, funnels, session replay | [posthog.com](https://posthog.com) project → Project API Key |
+| `NEXT_PUBLIC_POSTHOG_HOST` | Only needed if your PostHog project is EU-hosted | `https://eu.i.posthog.com` (defaults to the US host) |
+
+**Why ConvertKit specifically:** its forms are purpose-built to deliver a
+"content upgrade" (this PDF) automatically the moment someone subscribes - no
+extra automation to build. Swapping to Klaviyo/MailerLite later just means
+changing the fetch call in `components/LeadMagnet.js` to that provider's
+subscribe endpoint; the rest of the form is untouched.
+
+**Where to set these:**
+- **Cloudflare Pages**: Project → Settings → Environment variables → add each
+  (Production, and Preview if you want them there too) → redeploy.
+- **GitHub Pages mirror**: repo → Settings → Secrets and variables → Actions →
+  add each as a repository **variable**, then reference it in
+  `.github/workflows/deploy.yml`'s build step (see the comment there).
+
+The event fired on a successful signup is centralised in `lib/analytics.js`
+(`trackLead`), so every configured tool receives it from one call site.
 
 ## Notes
 
