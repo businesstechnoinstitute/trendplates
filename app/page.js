@@ -6,9 +6,7 @@ import Philosophy from "@/components/Philosophy";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
 import Metrics from "@/components/Metrics";
 import CaseStudy from "@/components/CaseStudy";
-import Testimonials from "@/components/Testimonials";
 import Services from "@/components/Services";
-import Proof from "@/components/Proof";
 import About from "@/components/About";
 import BouncyBand from "@/components/BouncyBand";
 import LeadMagnet from "@/components/LeadMagnet";
@@ -28,7 +26,6 @@ function readImages(folder) {
 
 export default function Home() {
   const logos = readImages("logos");
-  const artefacts = readImages("proof");
 
   return (
     <main className="relative">
@@ -93,13 +90,7 @@ export default function Home() {
 
       <CaseStudy />
 
-      {/* Renders only once real quotes are added to lib/content.js */}
-      <Testimonials />
-
       <Services />
-
-      {/* Renders only once real screenshots are added to /public/proof */}
-      <Proof artefacts={artefacts} />
 
       <BouncyBand
         className="h-40 sm:h-52"
