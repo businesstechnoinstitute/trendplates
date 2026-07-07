@@ -2,20 +2,23 @@ import fs from "fs";
 import path from "path";
 import Hero from "@/components/Hero";
 import ViralStatement from "@/components/ViralStatement";
+import Philosophy from "@/components/Philosophy";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
+import Metrics from "@/components/Metrics";
+import CaseStudy from "@/components/CaseStudy";
+import Testimonials from "@/components/Testimonials";
 import Services from "@/components/Services";
+import Proof from "@/components/Proof";
 import About from "@/components/About";
 import BouncyBand from "@/components/BouncyBand";
 import LeadMagnet from "@/components/LeadMagnet";
 import Cursor from "@/components/Cursor";
 
-// Read whatever client logos have been dropped into /public/logos so they
-// appear in the floating background automatically, no code changes needed.
-function getLogos() {
+// Read image files dropped into a /public folder (logos, proof artefacts).
+function readImages(folder) {
   try {
-    const dir = path.join(process.cwd(), "public", "logos");
     return fs
-      .readdirSync(dir)
+      .readdirSync(path.join(process.cwd(), "public", folder))
       .filter((f) => /\.(png|jpe?g|svg|webp|avif|gif)$/i.test(f))
       .sort();
   } catch {
@@ -24,7 +27,8 @@ function getLogos() {
 }
 
 export default function Home() {
-  const logos = getLogos();
+  const logos = readImages("logos");
+  const artefacts = readImages("proof");
 
   return (
     <main className="relative">
@@ -49,16 +53,16 @@ export default function Home() {
         </span>
         <nav className="hidden items-center gap-6 sm:flex">
           <a
-            href="#who-we-work-with"
+            href="#proof"
             className="label text-[0.6rem] text-smoke transition-colors hover:text-acid"
           >
-            Who
+            Proof
           </a>
           <a
             href="#services"
             className="label text-[0.6rem] text-smoke transition-colors hover:text-acid"
           >
-            Services
+            Systems
           </a>
           <a
             href="#about"
@@ -81,18 +85,25 @@ export default function Home() {
         words={["Discovery", "Clips", "Momentum", "Fans", "Reach", "Signal", "Drops"]}
       />
 
+      <Philosophy />
+
       <WhoWeWorkWith />
+
+      <Metrics />
+
+      <CaseStudy />
+
+      {/* Renders only once real quotes are added to lib/content.js */}
+      <Testimonials />
+
+      <Services />
+
+      {/* Renders only once real screenshots are added to /public/proof */}
+      <Proof artefacts={artefacts} />
 
       <BouncyBand
         className="h-40 sm:h-52"
         words={["Culture", "Community", "Energy", "Scene", "Movement", "Underground", "Sound"]}
-      />
-
-      <Services />
-
-      <BouncyBand
-        className="h-40 sm:h-52"
-        words={["Organic", "Attention", "Growth", "Bass", "Rave", "Creative", "Buzz"]}
       />
 
       <About />

@@ -89,3 +89,25 @@ body {
   letter-spacing: 0.28em;
   text-transform: uppercase;
 }
+
+/* Proof artefacts: slow horizontal marquee, pauses on hover. */
+.proof-marquee {
+  animation: proof-scroll 40s linear infinite;
+}
+.proof-marquee.group:hover {
+  animation-play-state: paused;
+}
+@keyframes proof-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* half, because the artefact set is duplicated for a seamless loop */
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proof-marquee {
+    animation: none;
+  }
+}

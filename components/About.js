@@ -20,7 +20,7 @@ export default function About() {
       />
 
       <RepelText
-        text="Trendplates is an organic growth agency built for electronic and dance music. We come from the culture, and we know records don't break because of ad spend. They break through communities, clips, moments and momentum. We build the systems that make that happen: fan-page networks, creative formats and culture-first campaigns that earn real attention and turn artists, labels and catalogues into movements."
+        text="Trendplates is a specialist organic-growth studio for electronic and dance music. We come from the scene, we speak creator, and we've spent years learning exactly how a record travels from a bedroom to a festival stage. We don't run ads and hope. We build the fan-page networks, participation formats and creator systems that turn artists, labels and catalogues into movements."
         radius={100}
         max={16}
         className="mx-auto mt-8 max-w-2xl text-sm leading-relaxed text-smoke sm:text-base"
