@@ -118,11 +118,11 @@ export default function Hero({ logos = [] }) {
 
       {/* Scroll cue */}
       <motion.button
-        onClick={() =>
-          document
-            .getElementById("what-we-do")
-            ?.scrollIntoView({ behavior: "smooth" })
-        }
+        onClick={() => {
+          const target = document.getElementById("what-we-do");
+          if (window.__lenis) window.__lenis.scrollTo(target);
+          else target?.scrollIntoView({ behavior: "smooth" });
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 0.8 }}

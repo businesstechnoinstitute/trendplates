@@ -4,7 +4,6 @@ import Hero from "@/components/Hero";
 import ViralStatement from "@/components/ViralStatement";
 import Philosophy from "@/components/Philosophy";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
-import Metrics from "@/components/Metrics";
 import CaseStudy from "@/components/CaseStudy";
 import Services from "@/components/Services";
 import About from "@/components/About";
@@ -85,8 +84,6 @@ export default function Home() {
       <Philosophy />
 
       <WhoWeWorkWith />
-
-      <Metrics />
 
       <CaseStudy />
 

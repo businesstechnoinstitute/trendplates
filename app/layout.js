@@ -1,6 +1,8 @@
 import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
 import Analytics from "@/components/Analytics";
+import SmoothScroll from "@/components/SmoothScroll";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export const metadata = {
   title: "Trendplates | Organic Growth Systems for Electronic Dance Music",
@@ -26,6 +28,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className={fontVariables}>
       <body className="bg-ink text-paper antialiased">
         <Analytics />
+        <SmoothScroll />
+        <ScrollProgress />
         {children}
       </body>
     </html>
