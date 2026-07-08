@@ -18,7 +18,8 @@ function Word({ children, progress, range }) {
  * scroll it through the viewport. Scroll-linked (not a timed animation), so it
  * tracks the pointer of the page rather than playing on its own.
  */
-export default function ScrollHighlightText({ text, className = "" }) {
+export default function ScrollHighlightText({ text, className = "", as = "p" }) {
+  const Tag = as;
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -28,7 +29,7 @@ export default function ScrollHighlightText({ text, className = "" }) {
   const words = text.split(" ");
 
   return (
-    <p ref={ref} className={className}>
+    <Tag ref={ref} className={className}>
       {words.map((word, i) => {
         const start = i / words.length;
         const end = (i + 1) / words.length;
@@ -38,6 +39,6 @@ export default function ScrollHighlightText({ text, className = "" }) {
           </Word>
         );
       })}
-    </p>
+    </Tag>
   );
 }

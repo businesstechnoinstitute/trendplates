@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import MorphingLogo from "./MorphingLogo";
 import Descriptors from "./Descriptors";
 import FloatingLogos from "./FloatingLogos";
+import RepelText from "./RepelText";
 
 export default function Hero({ logos = [] }) {
   // Shared pointer state in viewport coordinates, consumed by the logo and
@@ -85,14 +86,19 @@ export default function Hero({ logos = [] }) {
 
         <Descriptors />
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-7 max-w-xl text-center font-display text-sm font-medium leading-snug text-paper/90 sm:mt-9 sm:text-lg"
+          className="mt-7 max-w-xl sm:mt-9"
         >
-          Organic Growth Systems for Electronic Dance Music
-        </motion.p>
+          <RepelText
+            text="Organic Growth Systems for Electronic Dance Music"
+            radius={90}
+            max={16}
+            className="text-center font-display text-sm font-medium leading-snug text-paper/90 sm:text-lg"
+          />
+        </motion.div>
       </div>
 
       <p className="sr-only">

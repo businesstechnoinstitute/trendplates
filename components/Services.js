@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SERVICES } from "@/lib/content";
 import RepelText from "./RepelText";
+import ScrollHighlightText from "./ScrollHighlightText";
 
 export default function Services() {
   // FAQ-style: all closed by default, click a row to reveal it.
@@ -17,17 +18,17 @@ export default function Services() {
       <p className="label mb-5 text-center text-xs text-smoke sm:text-sm">
         The System
       </p>
-      <RepelText
+      <ScrollHighlightText
         as="h2"
         text="Not services. Systems."
-        radius={130}
-        max={22}
         className="mx-auto mb-4 max-w-3xl text-center font-display text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
       />
-      <p className="mx-auto mb-12 max-w-xl text-center text-sm leading-relaxed text-smoke sm:text-base">
-        Six proprietary systems that move records the way the scene actually
-        moves them.
-      </p>
+      <RepelText
+        text="Six proprietary systems that move records the way the scene actually moves them."
+        radius={90}
+        max={16}
+        className="mx-auto mb-12 max-w-xl text-center text-sm leading-relaxed text-smoke sm:text-base"
+      />
 
       <div className="mx-auto max-w-3xl border-b border-white/10">
         {SERVICES.map((s, i) => {

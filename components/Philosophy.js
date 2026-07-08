@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { PHILOSOPHY } from "@/lib/content";
 import ScrollHighlightText from "./ScrollHighlightText";
+import RepelText from "./RepelText";
 
 const container = {
   hidden: {},
@@ -28,6 +29,7 @@ export default function Philosophy() {
       <p className="label mb-8 text-xs text-smoke sm:text-sm">Philosophy</p>
 
       <ScrollHighlightText
+        as="h2"
         text={statement}
         className="mx-auto max-w-3xl font-display text-2xl font-semibold leading-[1.25] tracking-tight text-paper sm:text-4xl sm:leading-[1.2]"
       />
@@ -45,7 +47,14 @@ export default function Philosophy() {
             variants={item}
             className="flex items-baseline gap-3 font-display text-lg font-semibold sm:text-xl"
           >
-            <span className="text-acid">{a}</span>
+            <RepelText
+              as="span"
+              text={a}
+              colorScroll
+              radius={70}
+              max={14}
+              className="inline-block"
+            />
             <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-smoke">
               over
             </span>

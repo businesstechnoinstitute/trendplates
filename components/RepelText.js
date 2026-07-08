@@ -1,12 +1,17 @@
 "use client";
 
 import { Fragment, useEffect, useLayoutEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 /**
  * Renders text per-character with the same cursor/touch "push away" repulsion
  * as the logo. Self-contained: it owns its own pointer listener (no shared
  * ref needed) and caches rest positions in document coordinates so it stays
  * correct through scrolling without re-measuring every frame.
+ *
+ * Optionally (`colorScroll`) also fills the text from `fillFrom` to `fillTo`
+ * as it scrolls through the reading band — combine both effects on the same
+ * text (e.g. a green accent word that's both knockable and fills in).
  */
 export default function RepelText({
   text,
@@ -14,8 +19,18 @@ export default function RepelText({
   radius = 130,
   max = 34,
   as = "p",
+  colorScroll = false,
+  fillFrom = "rgb(138, 138, 134)", // smoke
+  fillTo = "rgb(198, 255, 58)", // acid
 }) {
   const Tag = as;
+  const MotionTag = motion[Tag] || motion.p;
+  const wrapperRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: wrapperRef,
+    offset: ["start 0.9", "start 0.4"],
+  });
+  const fillColor = useTransform(scrollYProgress, [0, 1], [fillFrom, fillTo]);
   const charEls = useRef([]);
   const base = useRef([]); // index -> { x, y } in document coordinates
   const offsets = useRef([]); // index -> { x, y } currently applied
@@ -125,7 +140,12 @@ export default function RepelText({
   const words = text.split(" ");
 
   return (
-    <Tag aria-label={text} className={className}>
+    <MotionTag
+      ref={wrapperRef}
+      aria-label={text}
+      className={className}
+      style={colorScroll ? { color: fillColor } : undefined}
+    >
       {words.map((word, wi) => (
         <Fragment key={wi}>
           {wi > 0 ? " " : null}
@@ -150,6 +170,6 @@ export default function RepelText({
           </span>
         </Fragment>
       ))}
-    </Tag>
+    </MotionTag>
   );
 }

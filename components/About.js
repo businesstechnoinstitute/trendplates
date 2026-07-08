@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import RepelText from "./RepelText";
+import ScrollHighlightText from "./ScrollHighlightText";
 
 export default function About() {
   return (
@@ -19,22 +19,17 @@ export default function About() {
         className="mx-auto max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tight text-paper sm:text-5xl"
       />
 
-      <RepelText
+      <ScrollHighlightText
         text="Trendplates is a specialist organic-growth studio for electronic and dance music. We come from the scene, we speak creator, and we've spent years learning exactly how a record travels from a bedroom to a festival stage. We don't run ads and hope. We build the fan-page networks, participation formats and creator systems that turn artists, labels and catalogues into movements."
-        radius={100}
-        max={16}
         className="mx-auto mt-8 max-w-2xl text-sm leading-relaxed text-smoke sm:text-base"
       />
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.7, delay: 0.25 }}
-        className="label mt-10 text-[0.62rem] text-paper/70"
-      >
-        Music-first. Culture-first. Organic by design.
-      </motion.p>
+      <RepelText
+        text="Music-first. Culture-first. Organic by design."
+        radius={70}
+        max={12}
+        className="label mx-auto mt-10 text-[0.62rem] text-paper/70"
+      />
     </section>
   );
 }

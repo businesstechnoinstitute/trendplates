@@ -1,6 +1,7 @@
 "use client";
 
 import RepelText from "./RepelText";
+import ScrollHighlightText from "./ScrollHighlightText";
 
 export default function ViralStatement() {
   return (
@@ -17,10 +18,8 @@ export default function ViralStatement() {
         className="font-display text-2xl font-semibold leading-[1.15] tracking-tight text-paper sm:text-4xl sm:leading-[1.15]"
       />
 
-      <RepelText
+      <ScrollHighlightText
         text="Trendplates builds fan-page networks, creative formats and organic campaigns that turn records, catalogues and moments into momentum across the dance music scene. We work where discovery really happens, in feeds, communities and clips, so attention is earned rather than bought."
-        radius={100}
-        max={16}
         className="mx-auto mt-10 max-w-2xl text-sm leading-relaxed text-smoke sm:text-base"
       />
     </section>

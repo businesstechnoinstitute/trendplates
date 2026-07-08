@@ -3,6 +3,7 @@ import path from "path";
 import Hero from "@/components/Hero";
 import ViralStatement from "@/components/ViralStatement";
 import Philosophy from "@/components/Philosophy";
+import Testimonials from "@/components/Testimonials";
 import WhoWeWorkWith from "@/components/WhoWeWorkWith";
 import CaseStudy from "@/components/CaseStudy";
 import Services from "@/components/Services";
@@ -10,6 +11,7 @@ import About from "@/components/About";
 import BouncyBand from "@/components/BouncyBand";
 import LeadMagnet from "@/components/LeadMagnet";
 import Cursor from "@/components/Cursor";
+import RepelText from "@/components/RepelText";
 
 // Read image files dropped into a /public folder (logos, proof artefacts).
 function readImages(folder) {
@@ -86,6 +88,11 @@ export default function Home() {
 
       <Philosophy />
 
+      {/* Positioned 4th/5th in the flow, right after Philosophy. Renders
+          nothing until real quotes are added to TESTIMONIALS in
+          lib/content.js. */}
+      <Testimonials />
+
       <WhoWeWorkWith />
 
       <CaseStudy />
@@ -100,9 +107,12 @@ export default function Home() {
       <About />
 
       <footer className="relative z-10 border-t border-white/10 px-6 py-12 text-center">
-        <p className="font-display text-sm font-medium text-paper/80">
-          Organic Growth Systems for Electronic Dance Music
-        </p>
+        <RepelText
+          text="Organic Growth Systems for Electronic Dance Music"
+          radius={80}
+          max={14}
+          className="font-display text-sm font-medium text-paper/80"
+        />
         <p className="label mt-4 text-[0.6rem] text-smoke/60">
           © {new Date().getFullYear()} Trendplates
         </p>
