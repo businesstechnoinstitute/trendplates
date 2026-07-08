@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { PHILOSOPHY } from "@/lib/content";
-import RepelText from "./RepelText";
+import ScrollHighlightText from "./ScrollHighlightText";
 
 const container = {
   hidden: {},
@@ -27,11 +27,8 @@ export default function Philosophy() {
     >
       <p className="label mb-8 text-xs text-smoke sm:text-sm">Philosophy</p>
 
-      <RepelText
-        as="h2"
+      <ScrollHighlightText
         text={statement}
-        radius={120}
-        max={22}
         className="mx-auto max-w-3xl font-display text-2xl font-semibold leading-[1.25] tracking-tight text-paper sm:text-4xl sm:leading-[1.2]"
       />
 

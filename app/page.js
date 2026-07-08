@@ -73,6 +73,9 @@ export default function Home() {
 
       <ViralStatement />
 
+      {/* Sign-up form high up the page to capture leads early. */}
+      <LeadMagnet />
+
       {/* Client logos live here (drop PNGs in /public/logos). Falls back to
           the bouncy words until any logos are present. */}
       <BouncyBand
@@ -95,8 +98,6 @@ export default function Home() {
       />
 
       <About />
-
-      <LeadMagnet />
 
       <footer className="relative z-10 border-t border-white/10 px-6 py-12 text-center">
         <p className="font-display text-sm font-medium text-paper/80">

@@ -1,22 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { SERVICES } from "@/lib/content";
 import RepelText from "./RepelText";
 
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-const row = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
-
 export default function Services() {
+  // FAQ-style: all closed by default, click a row to reveal it.
+  const [open, setOpen] = useState(-1);
+
   return (
     <section
       id="services"
@@ -37,36 +29,58 @@ export default function Services() {
         moves them.
       </p>
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-60px" }}
-        className="border-b border-white/10"
-      >
-        {SERVICES.map((s, i) => (
-          <motion.div
-            key={s.system}
-            variants={row}
-            className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-5 gap-y-2 border-t border-white/10 py-7 transition-colors duration-300 hover:bg-white/[0.02] sm:grid-cols-[3.5rem_minmax(0,1.1fr)_minmax(0,1.4fr)] sm:gap-x-8 sm:py-9"
-          >
-            <span className="font-mono text-xs text-smoke transition-colors duration-300 group-hover:text-acid">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <div className="min-w-0">
-              <h3 className="font-display text-xl font-semibold tracking-tight text-paper transition-transform duration-300 group-hover:translate-x-1 sm:text-2xl">
-                {s.system}
-              </h3>
-              <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-acid/70">
-                {s.tag}
-              </p>
+      <div className="mx-auto max-w-3xl border-b border-white/10">
+        {SERVICES.map((s, i) => {
+          const isOpen = open === i;
+          return (
+            <div key={s.system} className="border-t border-white/10">
+              <button
+                type="button"
+                onClick={() => setOpen(isOpen ? -1 : i)}
+                aria-expanded={isOpen}
+                className="group flex w-full items-center gap-4 py-6 text-left sm:gap-6"
+              >
+                <span className="w-6 shrink-0 font-mono text-xs text-smoke transition-colors duration-300 group-hover:text-acid">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="flex-1 font-display text-xl font-semibold tracking-tight text-paper transition-colors duration-300 group-hover:text-acid sm:text-2xl">
+                  {s.system}
+                </span>
+                <span
+                  className={`shrink-0 font-mono text-2xl leading-none text-acid transition-transform duration-300 ${
+                    isOpen ? "rotate-45" : ""
+                  }`}
+                  aria-hidden="true"
+                >
+                  +
+                </span>
+              </button>
+
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pb-7 pl-10 pr-2 sm:pl-12">
+                      <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-acid/70">
+                        {s.tag}
+                      </p>
+                      <p className="max-w-xl text-sm leading-relaxed text-smoke sm:text-base">
+                        {s.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <p className="col-span-2 max-w-md text-sm leading-relaxed text-smoke transition-colors duration-300 group-hover:text-paper/80 sm:col-span-1">
-              {s.desc}
-            </p>
-          </motion.div>
-        ))}
-      </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 }
