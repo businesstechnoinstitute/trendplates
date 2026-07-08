@@ -63,11 +63,11 @@ export default function LeadMagnet() {
       >
         <p className="label mb-4 text-[0.6rem] text-smoke">Free Download</p>
         <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">
-          25 Things To Check Before You Post on TikTok
+          The Ultimate Music Artist TikTok Starter Guide and Checklist
         </h2>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-smoke sm:text-base">
-          The pre-post checklist our team runs on every clip we publish for
-          dance music artists and labels. Free, no fluff.
+          The exact framework and pre-post checklist our team runs on every
+          clip we publish for dance music artists and labels. Free, no fluff.
         </p>
 
         {status === "done" ? (
@@ -80,7 +80,7 @@ export default function LeadMagnet() {
               You&apos;re in.
             </p>
             <p className="mt-1 text-sm text-smoke">
-              Check your inbox. The checklist is on its way.
+              Check your inbox. The guide is on its way.
             </p>
           </motion.div>
         ) : (
@@ -109,7 +109,7 @@ export default function LeadMagnet() {
               disabled={status === "sending"}
               className="group relative w-full overflow-hidden rounded-xl bg-paper px-6 py-3 font-display font-semibold text-ink transition-transform active:scale-[0.98] disabled:opacity-60 sm:w-auto"
             >
-              {status === "sending" ? "Sending…" : "Send Me the Checklist"}
+              {status === "sending" ? "Sending…" : "Send Me the Guide"}
             </button>
           </form>
         )}
