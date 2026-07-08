@@ -22,6 +22,8 @@ module.exports = {
         syne: ["var(--font-syne)", "sans-serif"],
         // Headings, nav, labels and CTAs sitewide.
         display: ["var(--font-unbounded)", "sans-serif"],
+        "archivo-black": ["var(--font-archivo-black)", "sans-serif"],
+        "archivo-narrow": ["var(--font-archivo-narrow)", "sans-serif"],
       },
     },
   },

@@ -86,6 +86,7 @@ body {
 
 /* Thin uppercase tracking helper, used for labels and the mobile hint. */
 .label {
+  font-family: var(--font-archivo-narrow), sans-serif;
   letter-spacing: 0.28em;
   text-transform: uppercase;
 }
