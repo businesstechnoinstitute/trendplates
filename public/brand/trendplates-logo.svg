@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3231 441" width="3231" height="441">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Grotesk:wght@700&family=Syne:wght@700&family=Inter:wght@700&family=Space+Mono:wght@700&family=Archivo:wght@700&family=Bricolage+Grotesque:wght@700&display=swap');
+      text { text-transform: uppercase; }
+    </style>
+  </defs>
+  <g>
+      <text x="62.8" y="344.0" font-family="Playfair Display" font-weight="700" font-size="420" fill="#f2f0ea">T</text>
+      <text x="343.1" y="344.0" font-family="Space Grotesk" font-weight="700" font-size="420" fill="#f2f0ea">R</text>
+      <text x="646.4" y="344.0" font-family="Syne" font-weight="700" font-size="420" fill="#f2f0ea">E</text>
+      <text x="925.9" y="344.0" font-family="Inter" font-weight="700" font-size="420" fill="#f2f0ea">N</text>
+      <text x="1229.9" y="344.0" font-family="Space Mono" font-weight="700" font-size="420" fill="#f2f0ea">D</text>
+      <text x="1533.2" y="344.0" font-family="Archivo" font-weight="700" font-size="420" fill="#f2f0ea">P</text>
+      <text x="1789.8" y="344.0" font-family="Bricolage Grotesque" font-weight="700" font-size="420" fill="#f2f0ea">L</text>
+      <text x="2069.9" y="344.0" font-family="Syne" font-weight="700" font-size="420" fill="#f2f0ea">A</text>
+      <text x="2373.0" y="344.0" font-family="Playfair Display" font-weight="700" font-size="420" fill="#f2f0ea">T</text>
+      <text x="2665.8" y="344.0" font-family="Inter" font-weight="700" font-size="420" fill="#f2f0ea">E</text>
+      <text x="2933.5" y="344.0" font-family="Space Mono" font-weight="700" font-size="420" fill="#f2f0ea">S</text>
+  </g>
+</svg>

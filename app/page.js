@@ -12,6 +12,7 @@ import BouncyBand from "@/components/BouncyBand";
 import LeadMagnet from "@/components/LeadMagnet";
 import Cursor from "@/components/Cursor";
 import RepelText from "@/components/RepelText";
+import HeaderLogo from "@/components/HeaderLogo";
 
 // Read image files dropped into a /public folder (logos, proof artefacts).
 function readImages(folder) {
@@ -46,9 +47,7 @@ export default function Home() {
 
       {/* Top bar */}
       <header className="absolute left-0 top-0 z-30 flex w-full items-center justify-between px-6 py-6 sm:px-10">
-        <span className="label font-display text-xs font-semibold text-paper">
-          Trendplates
-        </span>
+        <HeaderLogo />
         <nav className="hidden items-center gap-6 sm:flex">
           <a
             href="#proof"
