@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /**
  * A thin acid-green line at the very top that fills as you scroll. Minimal,
- * modern, and reads purely as progress — no clutter.
+ * modern, and reads purely as progress, no clutter.
  */
 export default function ScrollProgress() {
   const barRef = useRef(null);

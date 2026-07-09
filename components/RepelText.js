@@ -10,7 +10,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
  * correct through scrolling without re-measuring every frame.
  *
  * Optionally (`colorScroll`) also fills the text from `fillFrom` to `fillTo`
- * as it scrolls through the reading band — combine both effects on the same
+ * as it scrolls through the reading band. Combine both effects on the same
  * text (e.g. a green accent word that's both knockable and fills in).
  */
 export default function RepelText({

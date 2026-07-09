@@ -5,7 +5,7 @@ import Script from "next/script";
 
 // Every tool here is opt-in via a build-time env var (see README.md,
 // "Analytics & lead capture"). Leave any of them unset and that tool simply
-// never loads — no errors, nothing to remove from the code.
+// never loads, no errors, nothing to remove from the code.
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;

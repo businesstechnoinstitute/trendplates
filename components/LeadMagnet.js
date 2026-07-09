@@ -8,7 +8,7 @@ import { trackLead } from "@/lib/analytics";
 // specifically to deliver a "content upgrade" (this PDF) automatically on
 // signup. The Form ID and the (public) API Key both live on the form's
 // embed/settings page in your ConvertKit dashboard. Use the "API Key", never
-// the "API Secret" — the API Key is the one meant to be used client-side,
+// the "API Secret". The API Key is the one meant to be used client-side,
 // the same way ConvertKit's own embeddable JS forms work.
 const CONVERTKIT_FORM_ID = process.env.NEXT_PUBLIC_CONVERTKIT_FORM_ID;
 const CONVERTKIT_API_KEY = process.env.NEXT_PUBLIC_CONVERTKIT_API_KEY;

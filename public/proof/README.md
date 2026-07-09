@@ -1,7 +1,7 @@
 # Campaign artefacts (proof)
 
 Drop **real** campaign screenshots here and they'll appear in the "Artefacts
-from the field" marquee automatically (refresh / redeploy). No stock photos —
+from the field" marquee automatically (refresh / redeploy). No stock photos,
 these should look like artefacts from real campaigns: TikTok/Instagram
 analytics, reach numbers, creator content, community screenshots, campaign
 timelines.

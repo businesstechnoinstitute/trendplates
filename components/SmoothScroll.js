@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 /**
- * Inertia / momentum scrolling (Lenis) — the single biggest "modern, expensive
+ * Inertia / momentum scrolling (Lenis), the single biggest "modern, expensive
  * site" feel upgrade. It scrolls the real page, so window.scrollY stays
  * accurate and every existing scroll-driven effect (RepelText, reveals,
  * IntersectionObservers) keeps working. Disabled under reduced motion.

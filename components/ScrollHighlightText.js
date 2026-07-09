@@ -14,7 +14,7 @@ function Word({ children, progress, range }) {
 }
 
 /**
- * Big statement text that "reads along" — words light up one by one as you
+ * Big statement text that "reads along": words light up one by one as you
  * scroll it through the viewport. Scroll-linked (not a timed animation), so it
  * tracks the pointer of the page rather than playing on its own.
  */
