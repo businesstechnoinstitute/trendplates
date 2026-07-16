@@ -4,15 +4,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { trackLead } from "@/lib/analytics";
 
-// ConvertKit ("Kit") is the recommended ESP for this: its forms are built
-// specifically to deliver a "content upgrade" (this PDF) automatically on
-// signup. The Form ID and the (public) API Key both live on the form's
-// embed/settings page in your ConvertKit dashboard. Use the "API Key", never
-// the "API Secret". The API Key is the one meant to be used client-side,
-// the same way ConvertKit's own embeddable JS forms work.
-const CONVERTKIT_FORM_ID = process.env.NEXT_PUBLIC_CONVERTKIT_FORM_ID;
-const CONVERTKIT_API_KEY = process.env.NEXT_PUBLIC_CONVERTKIT_API_KEY;
-
+// Posts to the Cloudflare Pages Function at functions/api/subscribe.js,
+// which sends the guide via Resend server-side (API key never reaches the
+// browser). Only live on the Cloudflare deploy of this site, not the GitHub
+// Pages mirror, since that host can't run server code at all.
 export default function LeadMagnet() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,24 +19,12 @@ export default function LeadMagnet() {
     setStatus("sending");
 
     try {
-      if (CONVERTKIT_FORM_ID && CONVERTKIT_API_KEY) {
-        const res = await fetch(
-          `https://api.convertkit.com/v3/forms/${CONVERTKIT_FORM_ID}/subscribe`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              api_key: CONVERTKIT_API_KEY,
-              email,
-              first_name: name,
-            }),
-          }
-        );
-        if (!res.ok) throw new Error("ConvertKit subscribe failed");
-      } else {
-        // Not wired up yet: simulate success so the form still demos cleanly.
-        await new Promise((r) => setTimeout(r, 700));
-      }
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email }),
+      });
+      if (!res.ok) throw new Error("subscribe failed");
       trackLead({ email });
       setStatus("done");
     } catch (err) {
