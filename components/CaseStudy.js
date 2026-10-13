@@ -1,13 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { CASE_STUDY } from "@/lib/content";
 
-const MAILTO =
-  "mailto:trendplates@gmail.com?subject=Trendplates%20%E2%80%94%20Field%20Report%20001";
+const EMAIL = "trendplates@gmail.com";
+const MAILTO = `mailto:${EMAIL}?subject=Trendplates%20Field%20Report%20001`;
 
 export default function CaseStudy() {
   const { kicker, question, cta } = CASE_STUDY;
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // Clipboard blocked: the address is selectable text, so nothing is lost.
+    }
+  };
+
   // Highlight the headline number in acid green.
   const parts = question.split(/(77,000)/);
 
@@ -39,27 +53,56 @@ export default function CaseStudy() {
           )}
         </motion.h2>
 
-        <a
-          href={MAILTO}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
           className="group mt-10 inline-flex items-center gap-2 rounded-full border border-acid/50 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] text-acid transition-colors duration-300 hover:bg-acid hover:text-ink"
         >
           {cta}
           <span
             aria-hidden="true"
-            className="transition-transform duration-300 group-hover:translate-x-1"
+            className={`transition-transform duration-300 ${
+              open ? "rotate-90" : "group-hover:translate-x-1"
+            }`}
           >
             →
           </span>
-        </a>
+        </button>
 
-        <p className="mt-6">
-          <a
-            href={MAILTO}
-            className="font-mono text-xs tracking-[0.12em] text-smoke transition-colors duration-300 hover:text-acid sm:text-sm"
-          >
-            trendplates@gmail.com
-          </a>
-        </p>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              key="contact"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="pt-8">
+                <p className="select-all font-display text-xl font-semibold tracking-tight text-paper sm:text-3xl">
+                  {EMAIL}
+                </p>
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-3 font-mono text-[0.68rem] uppercase tracking-[0.18em]">
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    className="rounded-full border border-white/15 px-4 py-2 text-smoke transition-colors duration-300 hover:border-acid/60 hover:text-acid"
+                  >
+                    {copied ? "Copied" : "Copy"}
+                  </button>
+                  <a
+                    href={MAILTO}
+                    className="rounded-full border border-white/15 px-4 py-2 text-smoke transition-colors duration-300 hover:border-acid/60 hover:text-acid"
+                  >
+                    Open in email
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
