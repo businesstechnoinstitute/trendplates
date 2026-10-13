@@ -51,6 +51,15 @@ export default function CaseStudy() {
             →
           </span>
         </a>
+
+        <p className="mt-6">
+          <a
+            href={MAILTO}
+            className="font-mono text-xs tracking-[0.12em] text-smoke transition-colors duration-300 hover:text-acid sm:text-sm"
+          >
+            trendplates@gmail.com
+          </a>
+        </p>
       </div>
     </section>
   );

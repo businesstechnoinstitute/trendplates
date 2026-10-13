@@ -9,7 +9,6 @@ import CaseStudy from "@/components/CaseStudy";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import BouncyBand from "@/components/BouncyBand";
-import LeadMagnet from "@/components/LeadMagnet";
 import Cursor from "@/components/Cursor";
 import RepelText from "@/components/RepelText";
 import HeaderLogo from "@/components/HeaderLogo";
@@ -74,8 +73,9 @@ export default function Home() {
 
       <ViralStatement />
 
-      {/* Sign-up form high up the page to capture leads early. */}
-      <LeadMagnet />
+      {/* Lead magnet (TikTok starter guide) temporarily removed. To bring it
+          back, re-add <LeadMagnet /> here (the component and the
+          /api/subscribe function are still in the repo). */}
 
       {/* Client logos live here (drop PNGs in /public/logos). Falls back to
           the bouncy words until any logos are present. */}
